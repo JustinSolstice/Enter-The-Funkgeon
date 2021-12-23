@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Ammnomicons.png">
+	<!-- Created with Adobe Animate version 22.0.1.105 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Ammnomicon Awards0000" x="0" y="0" width="1224" height="674"/>
+	<SubTexture name="Ammnomicon Base0000" x="1224" y="0" width="1082" height="674"/>
+	<SubTexture name="Ammnomicon Credits0000" x="2306" y="0" width="1224" height="674"/>
+	<SubTexture name="Ammnomicon Freeplay0000" x="0" y="674" width="1224" height="674"/>
+	<SubTexture name="Ammnomicon Options0000" x="1224" y="674" width="1224" height="674"/>
+	<SubTexture name="Ammnomicon Story0000" x="2448" y="674" width="1154" height="674"/>
+</TextureAtlas>
