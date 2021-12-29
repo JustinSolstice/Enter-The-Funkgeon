@@ -109,13 +109,12 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-		addSong('test', 1, 'bf', FlxColor.BLUE); // Sure why not
-
+		addSong('test', 1, 'bf', FlxColor.BLUE);
+		addSong('test', 1, 'bf', FlxColor.BLUE); 
+		addSong('test', 1, 'bf', FlxColor.BLUE); 
+		addSong('test', 1, 'bf', FlxColor.BLUE); 
+		addSong('test', 1, 'bf', FlxColor.BLUE);
+		addSong('test', 1, 'bf', FlxColor.BLUE); 
 
 
 		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
@@ -341,8 +340,14 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
+		if (!songLocked[curSelected]) {
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore;
 		diffText.text = '(' + ratingSplit.join('.') + '%)';
+		} 
+		else {
+		scoreText.text = 'PERSONAL BEST: N/A';
+		diffText.text = '(N/A)';
+		}
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -563,7 +568,7 @@ class FreeplayState extends MusicBeatState
 		else 
 			{
 			songCard.visible = false;
-			songText.changeText('???');
+			songText.changeText('LOCKED');
 		}
 
 		
