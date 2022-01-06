@@ -60,7 +60,7 @@ class StoryMenuState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var chars:Array<String> = // I already know this is gonna be a nightmare to add
-		['bf', 'pico']; // add extra chars here
+		['bf']; // add extra chars here
 
 	var charSelected:Int = 0;
 
@@ -149,13 +149,13 @@ class StoryMenuState extends MusicBeatState
 		weekCharacterThing.y += 80;
 		grpWeekCharacters.add(weekCharacterThing);
 
-		leftArrow = new FlxSprite(bgSprite.x + 85, weekThing.y);
+		leftArrow = new FlxSprite(bgSprite.x + 85, bgSprite.y + 105);
 		leftArrow.frames = ui_tex;
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
 		leftArrow.animation.play('idle');
 		leftArrow.antialiasing = ClientPrefs.globalAntialiasing;
-		leftArrow.setGraphicSize(60, 90);
+		leftArrow.setGraphicSize(50, 70);
 		add(leftArrow);
 
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
@@ -177,12 +177,12 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
 		rightArrow.antialiasing = ClientPrefs.globalAntialiasing;
-		rightArrow.setGraphicSize(60, 90);
+		rightArrow.setGraphicSize(50, 70);
 		add(rightArrow);
 
 		add(grpWeekCharacters);
 
-		charText = new Alphabet(0, bgSprite.y + 570, chars[0], true, false);
+		charText = new Alphabet(0, bgSprite.y + 560, chars[0], true, false);
 		add(charText);
 
 		icon = new HealthIcon(chars[0]);
@@ -304,6 +304,12 @@ class StoryMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
+		for (i in 0...menuOptions.length)
+			menuOptions[i].alpha = 0.4;
+
+		icon.alpha = charText.alpha;
+		menuOptions[optionSelected].alpha = 1;
+
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
 			lock.y = weekThing.y;
@@ -392,14 +398,14 @@ class StoryMenuState extends MusicBeatState
 		if (newImagePath != lastImagePath)
 		{
 			sprDifficulty.loadGraphic(image);
-			sprDifficulty.x = bgSprite.x + 135;
-			sprDifficulty.x += (405 - sprDifficulty.width) / 2; // First number here is how big the area the difficulty can be in is
+			sprDifficulty.x = bgSprite.x + 157;
+			sprDifficulty.x += (380 - sprDifficulty.width) / 2; // First number here is how big the area the difficulty can be in is
 			sprDifficulty.alpha = 0;
-			sprDifficulty.y = bgSprite.y + 310;
+			sprDifficulty.y = bgSprite.y + 316;
 
 			if (tweenDifficulty != null)
 				tweenDifficulty.cancel();
-			tweenDifficulty = FlxTween.tween(sprDifficulty, {y: bgSprite.y + 330, alpha: 1}, 0.07, {
+			tweenDifficulty = FlxTween.tween(sprDifficulty, {y: bgSprite.y + 336, alpha: 1}, 0.07, {
 				onComplete: function(twn:FlxTween)
 				{
 					tweenDifficulty = null;
@@ -442,11 +448,11 @@ class StoryMenuState extends MusicBeatState
 
 		weekThing.loadGraphic(image);
 		weekThing.updateHitbox();
-		weekThing.x = bgSprite.x + 135;
-		weekThing.x += (405 - weekThing.width) / 2;
+		weekThing.x = bgSprite.x + 157;
+		weekThing.x += (380 - weekThing.width) / 2;
 		weekThing.alpha = 0;
-		weekThing.y = bgSprite.y + 80;
-		FlxTween.tween(weekThing, {y: bgSprite.y + 100, alpha: 1}, 0.07, {ease: FlxEase.linear});
+		weekThing.y = bgSprite.y + 85;
+		FlxTween.tween(weekThing, {y: bgSprite.y + 105, alpha: 1}, 0.07, {ease: FlxEase.linear});
 
 		/*for (item in grpWeekText.members)
 			{
@@ -502,19 +508,27 @@ class StoryMenuState extends MusicBeatState
 	{
 		charSelected += change;
 
+		if (change != 0)
+		{
+			var demoText:FlxText = new FlxText(0, 0, 1280, 'More characters coming soon', 32); // Remove this when the demo is finished
+			demoText.alignment = CENTER;
+			demoText.screenCenter();
+			add(demoText);
+			FlxTween.tween(demoText, {alpha: 0}, 2, {ease: FlxEase.quadIn});
+		}
+
 		if (charSelected >= chars.length)
 			charSelected = 0;
 		if (charSelected < 0)
 			charSelected = chars.length - 1;
 
-		icon.changeIcon(chars[charSelected]);
 		charText.changeText(chars[charSelected]);
-		charText.updateHitbox();
 		charText.screenCenter(X);
-		charText.x -= (200 + icon.width);
+		charText.x -= (160 + icon.width);
 		charText.alpha = 0;
-		charText.y = bgSprite.y + 520;
-		FlxTween.tween(charText, {y: bgSprite.y + 540, alpha: 1}, 0.07, {ease: FlxEase.linear});
+		icon.changeIcon(chars[charSelected]);
+		charText.y = bgSprite.y + 533;
+		FlxTween.tween(charText, {y: bgSprite.y + 553, alpha: 1}, 0.07, {ease: FlxEase.linear});
 		grpWeekCharacters.members[0].changeCharacter(chars[charSelected]);
 	}
 
@@ -528,7 +542,12 @@ class StoryMenuState extends MusicBeatState
 			optionSelected = menuOptions.length - 1;
 
 		leftArrow.y = menuOptions[optionSelected].y;
-		rightArrow.y = menuOptions[optionSelected].y;
+		if (optionSelected == 0)
+			leftArrow.y += 4;
+		else
+			leftArrow.y -= 8;
+
+		rightArrow.y = leftArrow.y;
 	}
 
 	function weekIsLocked(weekNum:Int)
