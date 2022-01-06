@@ -25,7 +25,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var usingMouse:Bool = true;
+	public static var usingMouse:Bool = false;
 	var onButton:Bool = false;
 
 	public static var psychEngineVersion:String = '0.5'; //This is also used for Discord RPC
