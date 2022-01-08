@@ -205,6 +205,18 @@ class StoryMenuState extends MusicBeatState
 		add(scoreText);
 		add(txtWeekTitle);
 
+		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBG.alpha = 0.6;
+		add(textBG);
+
+		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var size:Int = 18;
+	
+		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.scrollFactor.set();
+		add(text);
+
 		changeWeek();
 
 		menuOptions = [weekThing, sprDifficulty, charText];
@@ -307,8 +319,8 @@ class StoryMenuState extends MusicBeatState
 		for (i in 0...menuOptions.length)
 			menuOptions[i].alpha = 0.4;
 
-		icon.alpha = charText.alpha;
 		menuOptions[optionSelected].alpha = 1;
+		icon.alpha = charText.alpha;
 
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
@@ -357,7 +369,7 @@ class StoryMenuState extends MusicBeatState
 			PlayState.campaignScore = 0;
 			PlayState.campaignMisses = 0;
 			PlayState.storyChar = chars[charSelected];
-			new FlxTimer().start(1, function(tmr:FlxTimer)
+			new FlxTimer().start(0.8, function(tmr:FlxTimer)
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 				FreeplayState.destroyFreeplayVocals();
@@ -367,10 +379,6 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
-	}
-
-	function changeSelection()
-	{
 	}
 
 	var tweenDifficulty:FlxTween;
@@ -398,7 +406,7 @@ class StoryMenuState extends MusicBeatState
 		if (newImagePath != lastImagePath)
 		{
 			sprDifficulty.loadGraphic(image);
-			sprDifficulty.x = bgSprite.x + 157;
+			sprDifficulty.x = bgSprite.x + 152;
 			sprDifficulty.x += (380 - sprDifficulty.width) / 2; // First number here is how big the area the difficulty can be in is
 			sprDifficulty.alpha = 0;
 			sprDifficulty.y = bgSprite.y + 316;
@@ -448,7 +456,7 @@ class StoryMenuState extends MusicBeatState
 
 		weekThing.loadGraphic(image);
 		weekThing.updateHitbox();
-		weekThing.x = bgSprite.x + 157;
+		weekThing.x = bgSprite.x + 152;
 		weekThing.x += (380 - weekThing.width) / 2;
 		weekThing.alpha = 0;
 		weekThing.y = bgSprite.y + 85;
@@ -527,8 +535,8 @@ class StoryMenuState extends MusicBeatState
 		charText.x -= (160 + icon.width);
 		charText.alpha = 0;
 		icon.changeIcon(chars[charSelected]);
-		charText.y = bgSprite.y + 533;
-		FlxTween.tween(charText, {y: bgSprite.y + 553, alpha: 1}, 0.07, {ease: FlxEase.linear});
+		charText.y = bgSprite.y + 534;
+		FlxTween.tween(charText, {y: bgSprite.y + 554, alpha: 1}, 0.07, {ease: FlxEase.linear});
 		grpWeekCharacters.members[0].changeCharacter(chars[charSelected]);
 	}
 
@@ -543,9 +551,9 @@ class StoryMenuState extends MusicBeatState
 
 		leftArrow.y = menuOptions[optionSelected].y;
 		if (optionSelected == 0)
-			leftArrow.y += 4;
+			leftArrow.y += 2;
 		else
-			leftArrow.y -= 8;
+			leftArrow.y -= 10;
 
 		rightArrow.y = leftArrow.y;
 	}

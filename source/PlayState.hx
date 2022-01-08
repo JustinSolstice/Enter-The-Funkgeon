@@ -947,7 +947,7 @@ class PlayState extends MusicBeatState
 		timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 		if (!ClientPrefs.lowQuality)
 		{
-			timeBar.numDivisions = 800; // How much lag this causes?? Should i tone it down to idk, 400 or 200?
+			timeBar.numDivisions = 1000;
 		}
 		else
 		{
@@ -1061,7 +1061,6 @@ class PlayState extends MusicBeatState
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.numDivisions = 200;
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
@@ -1400,7 +1399,6 @@ class PlayState extends MusicBeatState
 			foundFile = true;
 		}
 		} if (foundFile)
-
 		{
 			inCutscene = true;
 			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -3121,9 +3119,9 @@ class PlayState extends MusicBeatState
 					var camZoom:Float = Std.parseFloat(value1);
 					var hudZoom:Float = Std.parseFloat(value2);
 					if (Math.isNaN(camZoom))
-						camZoom = 0.015;
+						camZoom = 0.02;
 					if (Math.isNaN(hudZoom))
-						hudZoom = 0.03;
+						hudZoom = 0.04;
 
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
@@ -3335,6 +3333,7 @@ class PlayState extends MusicBeatState
 						}
 					});
 				}
+			#if desktop
 			case 'Force Fullscreen':
 				var value:Int = Std.parseInt(value1);
 				if (Math.isNaN(value))
@@ -3368,6 +3367,7 @@ class PlayState extends MusicBeatState
 					Application.current.window.y = normalWindowY;
 					shakeWindow(0, 0);
 				}
+			#end
 			case 'Flash':
 				var val1:String = value1;
 				var val2:Float = Std.parseFloat(value2);
@@ -4763,8 +4763,8 @@ class PlayState extends MusicBeatState
 		{
 			if (curBeat % 4 == 0)
 			{
-				FlxG.camera.zoom += 0.015;
-				camHUD.zoom += 0.03;
+				FlxG.camera.zoom += 0.02;
+				camHUD.zoom += 0.04;
 			}
 			else
 			{

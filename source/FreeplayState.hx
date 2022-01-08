@@ -284,7 +284,6 @@ class FreeplayState extends MusicBeatState
 		text.scrollFactor.set();
 		add(text);
 		super.create();
-		trace('create script finished');
 	}
 
 	override function closeSubState() {

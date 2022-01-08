@@ -33,7 +33,7 @@ class ClientPrefs {
 		'songspeed' => 1.0,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
-		'healthDrain' => 1.0,
+		'healthDrain' => 0.9,
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
